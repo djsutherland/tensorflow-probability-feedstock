@@ -32,7 +32,7 @@ requirements:
     #       defaults, which seems to complicate things for CI.
     #       this package should still work if the user has a 
     #       working version of tensorflow available.
-    # - tensorflow-base >=2,<3  # what is actual version needed?
+    - tensorflow-base >=2,<3  # what is actual version needed?
     - numpy >=1.13.3
     - six >=1.10.0
     - decorator
