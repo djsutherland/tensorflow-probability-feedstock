@@ -12,8 +12,7 @@ source:
     - 0001-always-build-release.patch
 
 build:
-  # upstream explicitly builds per-OS wheels,
-  # so maybe it's not actually noarch?
+  noarch: python
   number: 0
   script: 
     - bazel build :pip_pkg
@@ -23,11 +22,11 @@ build:
 
 requirements:
   host:
-    - python
+    - python >=3
     - pip
     - bazel
   run:
-    - python
+    - python >=3
     - tensorflow-base >=2,<3  # what is actual version needed?
     - numpy >=1.13.3
     - six >=1.10.0
