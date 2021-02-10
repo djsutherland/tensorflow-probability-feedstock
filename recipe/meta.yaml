@@ -1,5 +1,5 @@
 {% set name = "tensorflow-probability" %}
-{% set version = "0.8.0" %}
+{% set version = "0.12.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,28 +7,34 @@ package:
 
 source:
   url: https://github.com/tensorflow/probability/archive/{{ version }}.tar.gz
-  sha256: f6049549f6d6b82962523a6bf61c40c1d0c7ac685f209c0084a6da81dd78181d
+  sha256: 1fe89e85fd053bf36e8645a5a1a53b729bc254cf1516bc224fcbd1e4ff50083a
   patches:
     - 0001-always-build-release.patch
 
 build:
-  noarch: python
+  # upstream explicitly builds per-OS wheels,
+  # so maybe it's not actually noarch?
   number: 0
   script: 
-    - rm -f BUILD
-    - "{{ PYTHON }} -m pip install . --no-deps -vv"
+    - bazel build :pip_pkg
+    - mkdir tmp-pkg
+    - ./bazel-bin/pip_pkg tmp-pkg
+    - "{{ PYTHON }} -m pip install . --no-deps -vv tmp-pkg/*.whl"
 
 requirements:
   host:
     - python
     - pip
+    - bazel
   run:
     - python
+    - tensorflow-base >=2,<3  # what is actual version needed?
     - numpy >=1.13.3
     - six >=1.10.0
     - decorator
-    - cloudpickle >=0.6.1
-    - tensorflow-base >=1.14.0
+    - cloudpickle >=1.3
+    - gast >=0.3.2
+    - dm-tree
 
 test:
   imports:
