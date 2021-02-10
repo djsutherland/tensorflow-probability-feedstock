@@ -15,7 +15,7 @@ build:
   noarch: python
   number: 0
   # The upstream directions say to use bazel, but this is
-  # all bazel ends up doing. Since our bazel package has
+  # all bazel ends up doing. Since our bazel package can have
   # glibc version issues on CI, just do things this way.
   script: 
     - rm -f BUILD
@@ -27,11 +27,9 @@ requirements:
     - pip
   run:
     - python >=3
-    # NOTE: we definitely need tensorflow. but currently,
-    #       we need a version that's unfortunately only in
-    #       defaults, which seems to complicate things for CI.
-    #       this package should still work if the user has a 
-    #       working version of tensorflow available.
+    # NOTE: tf is currently pulled in from defaults,
+    #       so we have flexible channel priority set
+    #       in conda-forge.yml
     - tensorflow-base >=2,<3  # what is actual version needed?
     - numpy >=1.13.3
     - six >=1.10.0
