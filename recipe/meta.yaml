@@ -1,5 +1,5 @@
 {% set name = "tensorflow-probability" %}
-{% set version = "0.12.1" %}
+{% set version = "0.11.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/tensorflow/probability/archive/v{{ version }}.tar.gz
-  sha256: 1fe89e85fd053bf36e8645a5a1a53b729bc254cf1516bc224fcbd1e4ff50083a
+  sha256: 755d38db20a08d1b7d344ca00177e771525e473a6ab0922467b354da5df0a31e
   patches:
     - 0001-always-build-release.patch
 
@@ -30,7 +30,7 @@ requirements:
     # NOTE: tf is currently pulled in from defaults,
     #       so we have flexible channel priority set
     #       in conda-forge.yml
-    - tensorflow-base >=2,<3  # what is actual version needed?
+    - tensorflow-base >=2.3,<3
     - numpy >=1.13.3
     - six >=1.10.0
     - decorator
